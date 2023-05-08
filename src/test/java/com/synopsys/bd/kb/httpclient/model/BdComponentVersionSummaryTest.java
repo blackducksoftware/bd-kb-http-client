@@ -50,16 +50,15 @@ public class BdComponentVersionSummaryTest extends AbstractBdTest {
         Assert.assertFalse(bdComponentVersionSummary.isDeleted(), "Component version should not be deleted.");
         Assert.assertEquals(bdComponentVersionSummary.getMeta(), META, "Metas should be equal.");
 
-        Assert.assertEquals(bdComponentVersionSummary.getRequiredVersion(), VERSION, "Versions should be equal.");
+        Assert.assertEquals(bdComponentVersionSummary.getVersionOrDefault(), VERSION, "Versions should be equal.");
         Assert.assertEquals(bdComponentVersionSummary.getId(), ID, "Ids should be equal.");
         Assert.assertEquals(bdComponentVersionSummary.getComponentId(), COMPONENT_ID, "Component ids should be equal.");
     }
 
     @Test
-    public void testGetVersionWhenAbsent() {
+    public void testGetVersionOrDefaultWhenAbsent() {
         BdComponentVersionSummary bdComponentVersionSummary = new BdComponentVersionSummary(null, RELEASED_ON, DELETED, META);
 
-        Assert.assertEquals(bdComponentVersionSummary.getVersion().orElse(null), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
-        Assert.assertEquals(bdComponentVersionSummary.getRequiredVersion(), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
+        Assert.assertEquals(bdComponentVersionSummary.getVersionOrDefault(), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
     }
 }

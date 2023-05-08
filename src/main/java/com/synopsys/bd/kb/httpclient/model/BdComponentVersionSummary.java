@@ -12,7 +12,6 @@
 package com.synopsys.bd.kb.httpclient.model;
 
 import java.time.OffsetDateTime;
-import java.util.Optional;
 
 import com.synopsys.kb.httpclient.model.ComponentVersionSummary;
 import com.synopsys.kb.httpclient.model.Meta;
@@ -38,13 +37,8 @@ public class BdComponentVersionSummary extends ComponentVersionSummary {
         super(bdComponentVersionSummary);
     }
 
-    @Override
-    public Optional<String> getVersion() {
+    public String getVersionOrDefault() {
         // Assign default for absent version.
-        return super.getVersion().or(() -> Optional.of(UNKNOWN_VERSION));
-    }
-
-    public String getRequiredVersion() {
-        return getVersion().orElseThrow(() -> new IllegalStateException("Version must be defined."));
+        return getVersion().orElseGet(() -> UNKNOWN_VERSION);
     }
 }

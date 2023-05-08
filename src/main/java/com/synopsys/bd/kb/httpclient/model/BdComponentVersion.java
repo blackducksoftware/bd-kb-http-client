@@ -13,7 +13,6 @@ package com.synopsys.bd.kb.httpclient.model;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import com.google.common.base.Preconditions;
@@ -71,23 +70,13 @@ public class BdComponentVersion extends ComponentVersion {
         this.unknownLicenseDefinition = new LicenseDefinition(LicenseDefinitionType.CONJUNCTIVE, licenseDefinitionItems);
     }
 
-    @Override
-    public Optional<String> getVersion() {
+    public String getVersionOrDefault() {
         // Assign default for absent version.
-        return super.getVersion().or(() -> Optional.of(UNKNOWN_VERSION));
+        return getVersion().orElseGet(() -> UNKNOWN_VERSION);
     }
 
-    public String getRequiredVersion() {
-        return getVersion().orElseThrow(() -> new IllegalStateException("Version must be defined."));
-    }
-
-    @Override
-    public Optional<LicenseDefinition> getLicenseDefinition() {
+    public LicenseDefinition getLicenseDefinitionOrDefault() {
         // Assign default for absent license definition.
-        return super.getLicenseDefinition().or(() -> Optional.of(this.unknownLicenseDefinition));
-    }
-
-    public LicenseDefinition getRequiredLicenseDefinition() {
-        return getLicenseDefinition().orElseThrow(() -> new IllegalStateException("License definition must be defined."));
+        return getLicenseDefinition().orElseGet(() -> this.unknownLicenseDefinition);
     }
 }

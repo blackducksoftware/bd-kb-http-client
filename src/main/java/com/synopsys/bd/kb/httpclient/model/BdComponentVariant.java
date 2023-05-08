@@ -11,8 +11,6 @@
  */
 package com.synopsys.bd.kb.httpclient.model;
 
-import java.util.Optional;
-
 import com.synopsys.kb.httpclient.model.ComponentVariant;
 import com.synopsys.kb.httpclient.model.LicenseDefinition;
 import com.synopsys.kb.httpclient.model.Meta;
@@ -46,23 +44,13 @@ public class BdComponentVariant extends ComponentVariant {
         super(componentVariant);
     }
 
-    @Override
-    public Optional<String> getExternalNamespace() {
+    public String getExternalNamespaceOrDefault() {
         // Assign default for absent external namespace.
-        return super.getExternalNamespace().or(() -> Optional.of(DEFAULT_EXTERNAL_NAMESPACE));
+        return getExternalNamespace().orElseGet(() -> DEFAULT_EXTERNAL_NAMESPACE);
     }
 
-    public String getRequiredExternalNamespace() {
-        return getExternalNamespace().orElseThrow(() -> new IllegalStateException("External namespace must be defined."));
-    }
-
-    @Override
-    public Optional<String> getExternalId() {
+    public String getExternalIdOrDefault() {
         // Assign default for absent external id.
-        return super.getExternalId().or(() -> Optional.of(DEFAULT_EXTERNAL_ID));
-    }
-
-    public String getRequiredExternalId() {
-        return getExternalId().orElseThrow(() -> new IllegalStateException("External id must be defined."));
+        return getExternalId().orElseGet(() -> DEFAULT_EXTERNAL_ID);
     }
 }

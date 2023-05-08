@@ -77,30 +77,27 @@ public class BdComponentVariantTest extends AbstractBdTest {
         Assert.assertFalse(bdComponentVariant.isComponentIntelligencePresent(), "Component intelligence should not be present.");
         Assert.assertEquals(bdComponentVariant.getMeta(), META, "Metas should be equal.");
 
-        Assert.assertEquals(bdComponentVariant.getRequiredExternalNamespace(), EXTERNAL_NAMESPACE, "External namespaces should be equal.");
-        Assert.assertEquals(bdComponentVariant.getRequiredExternalId(), EXTERNAL_ID, "External ids should be equal.");
+        Assert.assertEquals(bdComponentVariant.getExternalNamespaceOrDefault(), EXTERNAL_NAMESPACE, "External namespaces should be equal.");
+        Assert.assertEquals(bdComponentVariant.getExternalIdOrDefault(), EXTERNAL_ID, "External ids should be equal.");
         Assert.assertEquals(bdComponentVariant.getId(), ID, "Ids should be equal.");
         Assert.assertEquals(bdComponentVariant.getComponentId(), COMPONENT_ID, "Component ids should be equal.");
         Assert.assertEquals(bdComponentVariant.getComponentVersionId(), COMPONENT_VERSION_ID, "Component version ids should be equal.");
     }
 
     @Test
-    public void testGetExternalNamespaceWhenAbsent() {
+    public void testGetExternalNamespaceOrDefaultWhenAbsent() {
         BdComponentVariant bdComponentVariant = new BdComponentVariant(VERSION, null, EXTERNAL_ID, EXTERNAL_NAMESPACE_DISTRIBUTION, PACKAGE_URL, TYPE,
                 LICENSE_DEFINITION, DELETED, COMPONENT_INTELLIGENCE, META);
 
-        Assert.assertEquals(bdComponentVariant.getExternalNamespace().orElse(null), BdComponentVariant.DEFAULT_EXTERNAL_NAMESPACE,
-                "External namespaces should be equal.");
-        Assert.assertEquals(bdComponentVariant.getRequiredExternalNamespace(), BdComponentVariant.DEFAULT_EXTERNAL_NAMESPACE,
+        Assert.assertEquals(bdComponentVariant.getExternalNamespaceOrDefault(), BdComponentVariant.DEFAULT_EXTERNAL_NAMESPACE,
                 "External namespaces should be equal.");
     }
 
     @Test
-    public void testGetExternalIdWhenAbsent() {
+    public void testGetExternalIdOrDefaultWhenAbsent() {
         BdComponentVariant bdComponentVariant = new BdComponentVariant(VERSION, EXTERNAL_NAMESPACE, null, EXTERNAL_NAMESPACE_DISTRIBUTION, PACKAGE_URL, TYPE,
                 LICENSE_DEFINITION, DELETED, COMPONENT_INTELLIGENCE, META);
 
-        Assert.assertEquals(bdComponentVariant.getExternalId().orElse(null), BdComponentVariant.DEFAULT_EXTERNAL_ID, "External ids should be equal.");
-        Assert.assertEquals(bdComponentVariant.getRequiredExternalId(), BdComponentVariant.DEFAULT_EXTERNAL_NAMESPACE, "External ids should be equal.");
+        Assert.assertEquals(bdComponentVariant.getExternalIdOrDefault(), BdComponentVariant.DEFAULT_EXTERNAL_ID, "External ids should be equal.");
     }
 }

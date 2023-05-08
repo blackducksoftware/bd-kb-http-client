@@ -65,23 +65,22 @@ public class BdComponentVersionTest extends AbstractBdTest {
         Assert.assertTrue(bdComponentVersion.isComponentIntelligencePresent(), "Component intelligence should be present.");
         Assert.assertEquals(bdComponentVersion.getMeta(), META, "Metas should be equal.");
 
-        Assert.assertEquals(bdComponentVersion.getRequiredVersion(), VERSION, "Versions should be equal.");
-        Assert.assertEquals(bdComponentVersion.getRequiredLicenseDefinition(), LICENSE_DEFINITION, "License definitions should be equal.");
+        Assert.assertEquals(bdComponentVersion.getVersionOrDefault(), VERSION, "Versions should be equal.");
+        Assert.assertEquals(bdComponentVersion.getLicenseDefinitionOrDefault(), LICENSE_DEFINITION, "License definitions should be equal.");
         Assert.assertEquals(bdComponentVersion.getId(), ID, "Ids should be equal.");
         Assert.assertEquals(bdComponentVersion.getComponentId(), COMPONENT_ID, "Component ids should be equal.");
     }
 
     @Test
-    public void testGetVersionWhenAbsent() {
+    public void testGetVersionOrDefaultWhenAbsent() {
         BdComponentVersion bdComponentVersion = new BdComponentVersion(null, RELEASED_ON, LICENSE_DEFINITION, RISK_PROFILE, DELETED, COMPONENT_INTELLIGENCE,
                 META, BASE_HREF);
 
-        Assert.assertEquals(bdComponentVersion.getVersion().orElse(null), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
-        Assert.assertEquals(bdComponentVersion.getRequiredVersion(), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
+        Assert.assertEquals(bdComponentVersion.getVersionOrDefault(), BdComponentVersion.UNKNOWN_VERSION, "Versions should be equal.");
     }
 
     @Test
-    public void testGetLicenseDefinitionWhenAbsent() {
+    public void testGetLicenseDefinitionOrDefaultWhenAbsent() {
         BdComponentVersion bdComponentVersion = new BdComponentVersion(VERSION, RELEASED_ON, null, RISK_PROFILE, DELETED, COMPONENT_INTELLIGENCE,
                 META, BASE_HREF);
 
@@ -90,7 +89,6 @@ public class BdComponentVersionTest extends AbstractBdTest {
         List<LicenseDefinitionItem> licenseDefinitionItems = List.of(licenseDefinitionItem);
         LicenseDefinition unknownLicenseDefinition = new LicenseDefinition(LicenseDefinitionType.CONJUNCTIVE, licenseDefinitionItems);
 
-        Assert.assertEquals(bdComponentVersion.getLicenseDefinition().orElse(null), unknownLicenseDefinition, "License definitions should be equal.");
-        Assert.assertEquals(bdComponentVersion.getRequiredLicenseDefinition(), unknownLicenseDefinition, "License definitions should be equal.");
+        Assert.assertEquals(bdComponentVersion.getLicenseDefinitionOrDefault(), unknownLicenseDefinition, "License definitions should be equal.");
     }
 }
