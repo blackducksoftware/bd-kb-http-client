@@ -1,0 +1,65 @@
+buildscript {
+    apply from: 'https://raw.githubusercontent.com/blackducksoftware/integration-resources/master/gradle_common/buildscript-repositories.gradle', to: buildscript
+    apply from: 'https://raw.githubusercontent.com/blackducksoftware/integration-resources/master/gradle_common/buildscript-dependencies.gradle', to: buildscript
+
+    dependencies {
+        classpath "com.synopsys.integration:common-gradle-plugin:2.0.2"
+    }
+}
+
+project.ext.moduleName = 'com.synopsys.integration.bd-kb-http-client'
+version = '0.0.2-SNAPSHOT'
+
+apply plugin: 'com.synopsys.integration.library'
+
+allprojects {
+    apply plugin: 'base'
+    apply plugin: 'eclipse'
+    apply plugin: 'java-library'
+    apply plugin: 'jacoco'
+
+    // Always download sources, to allow debugging
+    eclipse {
+        classpath {
+            downloadSources = true
+        }
+    }
+
+    repositories {
+        maven { url "https://sig-repo.synopsys.com/bds-integrations-snapshot" }
+        mavenCentral()
+    }
+    
+    // Setup default test behavior, including failure logging
+    test {
+        useTestNG() {
+            useDefaultListeners = true
+        }
+        
+        finalizedBy jacocoTestReport
+    }
+    
+    jacocoTestReport {
+        dependsOn test
+    }
+    
+    // Set Java 9 automatic module name to prevent future collisions
+    jar {
+        manifest {
+            attributes("Automatic-Module-Name": "${project.group}.${project.name}".replaceAll("-", "."))
+        }
+    }
+    
+    assemble.dependsOn sourcesJar
+    assemble.dependsOn javadocJar    
+}
+
+dependencies {
+    api 'com.synopsys.integration:kb-http-client:0.0.2-SNAPSHOT'
+
+    api 'com.google.guava:guava:31.1-jre'
+
+    testImplementation 'org.testng:testng:7.6.0'
+    testImplementation 'org.mockito:mockito-core:5.2.0'
+}
+
