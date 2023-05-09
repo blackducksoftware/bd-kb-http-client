@@ -15,7 +15,7 @@ The Black Duck-centric KB HTTP client library requires Java 11 or later.
 
 ## License
 
-The bd-kb-http-client is licensed under the [MIT License](https://github.com/blackducksoftware/kb-http-client/blob/main/LICENSE).
+Licensed under the [MIT License](https://github.com/blackducksoftware/kb-http-client/blob/main/LICENSE).
 
 ## Notes and caveats
 
@@ -57,6 +57,31 @@ The Black Duck-centric KB HTTP client makes certain assumptions in favor of conv
    - Find many licenses (converts to BD-centric license page result). 
    - Find licenses by license term (converts to BD-centric license page result).
    
+## Release
+
++ Development (SNAPSHOT) publication
+
+Publishing the library with a "-SNAPSHOT" version suffix will create a development release within the internal Synopsys artifact manager.
+
+[Snapshots (internal)](https://artifactory.internal.synopsys.com/artifactory/bds-integrations-snapshot/com/synopsys/integration/bd-kb-http-client/)
+
+```
+% export ARTIFACTORY_DEPLOYER_PASSWORD=...
+% export ARTIFACTORY_DEPLOYER_USER=...
+% ./gradlew clean build deployLibrary --refresh-dependencies -x signMavenJavaPublication
+:```
+
++ Release publication
+
+Publishing the library without a "-SNAPSHOT" version suffix will create a production release within the internal Synopsys artifact manager.
+
+[Release (internal)](https://artifactory.internal.synopsys.com/artifactory/bds-integrations-release/com/synopsys/integration/bd-kb-http-client/)
+
+```
+% export ARTIFACTORY_DEPLOYER_PASSWORD=...
+% export ARTIFACTORY_DEPLOYER_USER=...
+% ./gradlew clean build deployLibrary --refresh-dependencies -x signMavenJavaPublication
+
 ## TODOs   
 
 ## Quick Start (code example)
