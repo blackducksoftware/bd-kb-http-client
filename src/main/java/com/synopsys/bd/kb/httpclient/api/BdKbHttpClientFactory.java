@@ -33,11 +33,9 @@ import com.synopsys.kb.httpclient.api.KbHttpClientFactory;
 /**
  * Black Duck-centric KB HTTP client factory.
  * 
- * Package protected.
- * 
  * @author skatzman
  */
-class BdKbHttpClientFactory {
+public class BdKbHttpClientFactory {
     public BdKbHttpClientFactory() {
     }
 
