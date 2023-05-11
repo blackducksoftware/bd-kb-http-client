@@ -62,7 +62,7 @@ public class BdLicenseDefinitionFinder {
         return find(licenseDefinition, 0);
     }
 
-    public Optional<BdLicenseDefinition> find(LicenseDefinition sourceLicenseDefinition, int depth) {
+    private Optional<BdLicenseDefinition> find(LicenseDefinition sourceLicenseDefinition, int depth) {
         if (depth >= this.maximumAttemptNumber) {
             // Have a max depth guard for traversing too deep into license trees as self-protection for extreme edge
             // cases or malformed data.
